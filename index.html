@@ -4,17 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sai Samslesh | Technical Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary-bg: #1a1a2e;
-      --secondary-bg: #16213e;
-      --accent-cyan: #4fc3f7;
-      --accent-lavender: #bb86fc;
-      --accent-coral: #ff6f61;
-      --text-primary: #e0e0e0;
-      --text-secondary: #b0b0b0;
+      --bg-dark: #1A1A1A;
+      --accent-lavender: #7C3AED;
+      --cta-coral: #F472B6;
+      --highlight-blue: #60A5FA;
+      --success-mint: #2DD4BF;
+      --text-offwhite: #E5E7EB;
+      --border-dark: #2D2D2D;
+      --hover-gold: #FBBF24;
     }
 
     * {
@@ -24,246 +25,223 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      color: var(--text-primary);
-      background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-offwhite);
+      background: var(--bg-dark);
       line-height: 1.6;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* Background Wave Animation */
-    .wave-bg {
+    /* Code Animation Overlay */
+    .code-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(79, 195, 247, 0.1)" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,144C672,139,768,181,864,192C960,203,1056,181,1152,160C1248,139,1344,128,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x bottom;
-      animation: wave 20s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.1;
+      overflow: hidden;
     }
 
-    @keyframes wave {
-      0% { background-position: 0 bottom; }
-      100% { background-position: 1440px bottom; }
+    .code-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--highlight-blue);
+      white-space: pre;
+      position: absolute;
+      animation: scrollCode 45s linear infinite;
+      text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
+    }
+
+    @keyframes scrollCode {
+      0% { transform: translateY(100vh); }
+      100% { transform: translateY(-100vh); }
     }
 
     /* Header */
     header {
-      text-align: center;
-      padding: 4rem 2rem;
-      background: rgba(0, 0, 0, 0.2);
+      background: rgba(26, 26, 26, 0.95);
+      padding: 1.5rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 3rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
       color: var(--accent-lavender);
-      margin-bottom: 0.5rem;
-      animation: slideIn 1s ease-out;
-    }
-
-    .tagline {
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-      animation: slideIn 1.2s ease-out;
-    }
-
-    /* Sidebar Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 200px;
-      background: rgba(22, 33, 62, 0.95);
-      padding: 2rem 1rem;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      z-index: 100;
-    }
-
-    nav.active {
-      transform: translateX(0);
+      text-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
     }
 
     nav ul {
-      list-style: none;
       display: flex;
-      flex-direction: column;
+      list-style: none;
       gap: 1.5rem;
     }
 
     nav a {
-      color: var(--text-secondary);
+      color: var(--text-offwhite);
       text-decoration: none;
-      font-family: 'Space Mono', monospace;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
     }
 
     nav a:hover {
-      color: var(--accent-cyan);
-    }
-
-    /* Mobile Nav Toggle */
-    .nav-toggle {
-      position: fixed;
-      top: 1rem;
-      left: 1rem;
-      background: var(--accent-lavender);
-      color: var(--primary-bg);
-      border: none;
-      padding: 0.5rem;
-      cursor: pointer;
-      z-index: 101;
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .nav-toggle {
-        display: block;
-      }
-      nav {
-        width: 100%;
-        height: auto;
-        top: 0;
-        left: 0;
-        padding: 1rem;
-      }
+      color: var(--hover-gold);
+      text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
     }
 
     /* Main Content */
     main {
-      margin-left: 220px;
+      max-width: 1000px;
+      margin: 0 auto;
       padding: 2rem;
-    }
-
-    @media (max-width: 768px) {
-      main {
-        margin-left: 0;
-      }
     }
 
     section {
       margin-bottom: 4rem;
       opacity: 0;
-      animation: fadeInSection 1s ease forwards;
+      animation: fadeIn 0.8s ease forwards;
     }
 
     section h2 {
-      font-family: 'Space Mono', monospace;
+      font-family: 'Playfair Display', serif;
       font-size: 2.2rem;
       color: var(--accent-lavender);
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       text-align: center;
+      text-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
     }
 
     /* About Section */
     .about-content {
-      max-width: 800px;
-      margin: 0 auto;
       text-align: center;
     }
 
     .profile-img {
       width: 100%;
-      max-width: 300px;
-      border-radius: 50%;
-      margin: 0 auto 2rem;
+      max-width: 250px;
+      border-radius: 12px;
+      margin: 0 auto 1.5rem;
       display: block;
-      border: 3px solid var(--accent-cyan);
-      transition: transform 0.3s ease;
+      border: 2px solid var(--border-dark);
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .profile-img:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
     }
 
     .about-text p {
       font-size: 1.1rem;
-      margin-bottom: 1.5rem;
-      color: var(--text-secondary);
+      color: var(--text-offwhite);
+      margin-bottom: 1rem;
     }
 
     .skills {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.8rem;
       justify-content: center;
     }
 
     .skill-tag {
-      background: rgba(79, 195, 247, 0.1);
-      border: 1px solid var(--accent-cyan);
-      color: var(--accent-cyan);
+      background: rgba(45, 45, 45, 0.7);
+      border: 1px solid var(--border-dark);
+      color: var(--highlight-blue);
       padding: 0.5rem 1rem;
       border-radius: 20px;
       font-size: 0.9rem;
-      transition: transform 0.3s ease;
+      font-weight: 600;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .skill-tag:hover {
-      transform: scale(1.1);
+      background: var(--hover-gold);
+      color: var(--bg-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
     }
 
     /* Cards */
     .grid {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
-      max-width: 800px;
-      margin: 0 auto;
     }
 
     .card {
-      background: rgba(22, 33, 62, 0.7);
+      background: linear-gradient(135deg, rgba(45, 45, 45, 0.7), rgba(26, 26, 26, 0.9));
       border-radius: 12px;
       padding: 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-dark);
+      backdrop-filter: blur(5px);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid var(--accent-cyan);
     }
 
     .card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 20px rgba(79, 195, 247, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3);
     }
 
     .card h3 {
-      font-family: 'Space Mono', monospace;
+      font-family: 'Playfair Display', serif;
       color: var(--accent-lavender);
       margin-bottom: 1rem;
+      font-size: 1.4rem;
+      text-shadow: 0 0 8px rgba(124, 58, 237, 0.3);
     }
 
     .card .date {
-      color: var(--accent-coral);
+      color: var(--cta-coral);
       font-size: 0.9rem;
       margin-bottom: 1rem;
       display: block;
     }
 
     .badge {
-      background: rgba(255, 111, 97, 0.1);
-      border: 1px solid var(--accent-coral);
-      color: var(--accent-coral);
+      background: rgba(45, 212, 191, 0.1);
+      border: 1px solid var(--success-mint);
+      color: var(--success-mint);
       padding: 0.3rem 0.8rem;
       border-radius: 4px;
       font-size: 0.8rem;
       margin-right: 0.5rem;
+      box-shadow: 0 0 8px rgba(45, 212, 191, 0.3);
     }
 
     /* Projects */
     .project-img {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 12px;
       margin-bottom: 1.5rem;
-      border: 1px solid var(--accent-cyan);
-      transition: transform 0.3s ease;
+      border: 1px solid var(--border-dark);
+      box-shadow: 0 0 10px rgba(124, 58, 237, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .project-img:hover {
-      transform: scale(1.02);
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
     }
 
     .project-links {
@@ -274,34 +252,39 @@
 
     /* Buttons */
     .btn {
-      background: var(--accent-cyan);
-      color: var(--primary-bg);
+      background: var(--cta-coral);
+      color: #FFFFFF;
       border: none;
       padding: 0.8rem 1.5rem;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
-      font-family: 'Space Mono', monospace;
+      font-family: 'Playfair Display', serif;
       font-size: 0.9rem;
-      transition: background 0.3s ease, transform 0.3s ease;
+      font-weight: 500;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
+      box-shadow: 0 0 10px rgba(244, 114, 182, 0.3);
     }
 
     .btn:hover {
-      background: var(--accent-lavender);
+      background: var(--hover-gold);
       transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(251, 191, 36, 0.5);
     }
 
     .btn-outline {
       background: transparent;
-      border: 2px solid var(--accent-coral);
-      color: var(--accent-coral);
+      border: 2px solid var(--highlight-blue);
+      color: var(--highlight-blue);
+      box-shadow: none;
     }
 
     .btn-outline:hover {
-      background: var(--accent-coral);
-      color: var(--primary-bg);
+      background: var(--highlight-blue);
+      color: #FFFFFF;
+      box-shadow: 0 4px 15px rgba(96, 165, 250, 0.5);
     }
 
     /* Contact Form */
@@ -317,18 +300,19 @@
     input, textarea {
       width: 100%;
       padding: 1rem;
-      background: rgba(22, 33, 62, 0.8);
-      border: 1px solid var(--accent-cyan);
-      border-radius: 6px;
-      color: var(--text-primary);
-      font-family: 'Poppins', sans-serif;
+      background: rgba(45, 45, 45, 0.7);
+      border: 1px solid var(--border-dark);
+      border-radius: 8px;
+      color: var(--text-offwhite);
+      font-family: 'Inter', sans-serif;
       font-size: 1rem;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     input:focus, textarea:focus {
       outline: none;
       border-color: var(--accent-lavender);
+      box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
     }
 
     textarea {
@@ -338,79 +322,133 @@
 
     /* Footer */
     footer {
-      background: var(--secondary-bg);
-      padding: 3rem 2rem;
+      background: rgba(26, 26, 26, 0.95);
+      padding: 2rem;
       text-align: center;
+      border-top: 1px solid var(--border-dark);
+      backdrop-filter: blur(10px);
     }
 
     .social-links {
-      margin: 2rem 0;
+      margin: 1.5rem 0;
       display: flex;
       justify-content: center;
       gap: 1.5rem;
     }
 
     .social-links a {
-      color: var(--text-secondary);
+      color: var(--text-offwhite);
       font-size: 1.5rem;
-      transition: color 0.3s ease, transform 0.3s ease;
+      transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
     }
 
     .social-links a:hover {
-      color: var(--accent-lavender);
+      color: var(--hover-gold);
       transform: scale(1.2);
+      text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
     }
 
     .copyright {
-      color: var(--text-secondary);
+      color: var(--text-offwhite);
       font-size: 0.9rem;
+      opacity: 0.7;
     }
 
     /* Animations */
-    @keyframes slideIn {
-      from { transform: translateX(-50px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    @keyframes fadeInSection {
-      from { opacity: 0; transform: translateY(20px); }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .fade-in {
       opacity: 0;
-      animation: fadeInSection 1s ease forwards;
+      animation: fadeIn 0.8s ease forwards;
     }
 
     .delay-1 { animation-delay: 0.2s; }
     .delay-2 { animation-delay: 0.4s; }
     .delay-3 { animation-delay: 0.6s; }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .profile-img {
+        max-width: 200px;
+      }
+
+      main {
+        padding: 1rem;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="wave-bg"></div>
+  <!-- Code Animation Overlay -->
+  <div class="code-overlay">
+    <div class="code-text">
+      function portfolio() {
+        const skills = ["Java", "Python", "C", "Cybersecurity", "AI Tools", "HTML", "Prompt Engineering", "Figma"];
+        skills.forEach(skill => {
+          console.log(`Learning: ${skill}`);
+        });
+        return "Building the future, one line at a time!";
+      }
+      portfolio();
+    </div>
+    <div class="code-text" style="left: 25%; animation-delay: 5s;">
+      // Sample AI Prompt Generator
+      const generatePrompt = (topic) => {
+        return `Create a detailed guide on ${topic} with examples and best practices.`;
+      }
+      console.log(generatePrompt("Web Development"));
+    </div>
+    <div class="code-text" style="left: 50%; animation-delay: 10s;">
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Sai's Portfolio</title>
+        </head>
+        <body>
+          <h1>Welcome to My Portfolio</h1>
+          <p>Exploring tech and innovation.</p>
+        </body>
+      </html>
+    </div>
+  </div>
 
   <header>
-    <h1 class="logo">Sai Samslesh</h1>
-    <p class="tagline">Prompt Engineer & Tech Learner</p>
+    <div class="header-content">
+      <h1 class="logo">Sai Samslesh</h1>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#achievements">Achievements</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
-
-  <button class="nav-toggle"><i class="fas fa-bars"></i></button>
-  <nav>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#achievements">Achievements</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
 
   <main>
     <section id="about">
       <h2>About Me</h2>
       <div class="about-content fade-in">
-        <img src="https://via.placeholder.com/300x300/16213e/4fc3f7?text=Sai+Samslesh" alt="Sai Samslesh" class="profile-img">
+        <img src="https://via.placeholder.com/250x250/1A1A1A/7C3AED?text=Sai+Samslesh" alt="Sai Samslesh" class="profile-img">
         <div class="about-text">
           <p>I'm a passionate and curious tech enthusiast with a deep interest in AI, cybersecurity, and full-stack web development. I enjoy exploring the technical depths of how systems work, whether that's building engaging and modern websites or diving into the logic behind cybersecurity techniques and ethical hacking.</p>
           <p>I'm Sai Samslesh, actively learning and applying skills in languages like C, Java, Python, and HTML/CSS, and I often experiment with design tools like Figma and animation tools like After Effects to enhance user experiences. My achievements include completing challenges on platforms like HackerRank, contributing to collaborative coding projects, and developing modern web interfaces inspired by real-world social platforms.</p>
@@ -485,7 +523,7 @@
             <span class="badge">Gold Badge</span>
             <span class="badge">C Programmer</span>
           </div>
-          <a href="https://www.hackerrank.com/profile/saisamsleshmura1" class="btn btn-outline" style="margin-top: 1.5rem;">
+          <a href="#" class="btn btn-outline" style="margin-top: 1.5rem;">
             <i class="fas fa-external-link-alt"></i> View Profile
           </a>
         </div>
@@ -518,7 +556,7 @@
       <h2>Projects</h2>
       <div class="grid">
         <div class="card fade-in">
-          <img src="https://via.placeholder.com/600x400/16213e/4fc3f7?text=AI+Project" alt="AI Project" class="project-img">
+          <img src="https://via.placeholder.com/600x400/1A1A1A/7C3AED?text=AI+Project" alt="AI Project" class="project-img">
           <h3>AI Prompt Generator</h3>
           <p>Created an AI-powered tool that generates effective prompts for various AI models, improving output quality by 40%.</p>
           <div class="project-links">
@@ -531,7 +569,7 @@
           </div>
         </div>
         <div class="card fade-in delay-1">
-          <img src="https://via.placeholder.com/600x400/16213e/bb86fc?text=Web+Project" alt="Web Project" class="project-img">
+          <img src="https://via.placeholder.com/600x400/1A1A1A/F472B6?text=Web+Project" alt="Web Project" class="project-img">
           <h3>Personal Portfolio</h3>
           <p>Designed and developed this responsive portfolio website with modern UI/UX principles and animations.</p>
           <div class="project-links">
@@ -582,14 +620,6 @@
   </footer>
 
   <script>
-    // Toggle Sidebar
-    const navToggle = document.querySelector('.nav-toggle');
-    const nav = document.querySelector('nav');
-
-    navToggle.addEventListener('click', () => {
-      nav.classList.toggle('active');
-    });
-
     // Smooth Scrolling
     document.querySelectorAll('nav a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
@@ -600,11 +630,6 @@
         document.querySelector(targetId).scrollIntoView({
           behavior: 'smooth'
         });
-
-        // Close sidebar on mobile after click
-        if (window.innerWidth <= 768) {
-          nav.classList.remove('active');
-        }
       });
     });
 
